@@ -1,3 +1,5 @@
+#import "UIDocument+FPCocoaAdditions.h"
+
 @implementation UIDocument (FPCocoaAdditions)
 
 - (void)deleteFromURL:(NSURL *)url completionHandler:(void (^)(BOOL success))completionHandler {
