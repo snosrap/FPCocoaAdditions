@@ -2,6 +2,10 @@
 
 @implementation UIDocument (FPCocoaAdditions)
 
+- (id)initWithExtension:(NSString *)extension {
+    return [self initWithFileURL:[[[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil] URLByAppendingPathComponent:@"Documents"] URLByAppendingPathComponent:[NSString stringWithFormat:@"%@.%@", [[NSProcessInfo processInfo] globallyUniqueString], extension]]];
+}
+
 - (void)deleteFromURL:(NSURL *)url completionHandler:(void (^)(BOOL success))completionHandler {
     NSURL *destinationURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
     dispatch_queue_t q_default;
@@ -15,6 +19,10 @@
             completionHandler(success);
         });
     });
+}
+
+- (NSComparisonResult)compare:(UIDocument *)document {
+    return [self.localizedName compare:document.localizedName];
 }
 
 @end
